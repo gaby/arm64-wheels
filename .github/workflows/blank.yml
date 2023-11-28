@@ -14,11 +14,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
-          ref: 'v0.2.19'
+          ref: 'v0.2.20'
           submodules: 'recursive'
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
-          CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_ARCHS_MACOS: x86_64 universal2
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.11"
       - name: List wheels
         run: ls -la /wheelhouse/*.whl
