@@ -21,5 +21,6 @@ jobs:
         env:
           CIBW_ARCHS_MACOS: x86_64 universal2
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.11"
+          CIBW_BEFORE_BUILD: "pip install build wheel cmake"
       - name: List wheels
         run: ls -la /wheelhouse/*.whl
