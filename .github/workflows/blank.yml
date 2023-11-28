@@ -8,8 +8,8 @@ on:
 
 jobs:
   build_wheels_macos:
-    name: Build wheels on macos-12
-    runs-on: macos-latest
+    name: Build wheels
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,9 +19,8 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
-          CIBW_ARCHS_MACOS: universal2
+          CIBW_ARCHS_MACOS: arm64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.11"
-          CIBW_BEFORE_BUILD: 'export CMAKE_OSX_ARCHITECTURES="arm64" && export ARCHFLAGS="-arch arm64"'
           CIBW_BUILD_VERBOSITY: 2
           CIBW_BEFORE_ALL: 'pip install build wheel cmake'
       - name: List wheels
