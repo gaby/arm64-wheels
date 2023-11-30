@@ -22,7 +22,6 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
       - name: Build wheels
-        run: |
-          CIBW_BUILD='aarch64' cibuildwheel -v --output-dir wheelhouse
+        run: cibuildwheel --platform linux --archs "arm64" --output-dir wheelhouse
       - name: List built wheels
         run: ls -la wheelhouse
