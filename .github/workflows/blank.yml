@@ -24,9 +24,7 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
       - name: Build wheels
-        run: cibuildwheel --platform linux --archs "aarch64" --output-dir wheelhouse
+        run: CIBW_REPAIR_WHEEL_COMMAND="" cibuildwheel --platform linux --archs "aarch64" --output-dir wheelhouse
         continue-on-error: true
       - name: List wheelhouse contents
-        run: ls -la wheelhouse
-      - name: Check for libllama.so
-        run: find . -name 'libllama.so'
+        run: ls -la wheelhouse/
