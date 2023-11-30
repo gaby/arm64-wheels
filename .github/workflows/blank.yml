@@ -1,25 +1,28 @@
-name: CI
+name: Build Wheels
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
-  build_wheels:
-    name: Build wheels
-    runs-on: macos-latest-xlarge
+  build-wheels:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
           ref: 'v0.2.20'
           submodules: 'recursive'
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.16.2
-        env:
-          CIBW_BUILD: cp311-*
-          CIBW_BUILD_VERBOSITY: 3
-      - name: List wheels
-        run: ls -la /wheelhouse/*.whl
+        run: |
+          CIBW_BUILD='*-manylinux_aarch64' cibuildwheel --output-dir wheelhouse
+      - name: List built wheels
+        run: ls -la wheelhouse
