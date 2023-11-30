@@ -24,6 +24,6 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
       - name: Build wheels
-        run: CIBW_BUILD="cp311-*" CIBW_REPAIR_WHEEL_COMMAND="" cibuildwheel --platform linux --archs "aarch64" --output-dir wheelhouse
+        run: CIBW_BUILD="cp311-*" CIBW_REPAIR_WHEEL_COMMAND="" cibuildwheel --platform linux --archs "auto universal2" --output-dir wheelhouse
       - name: List wheelhouse contents
         run: ls -la wheelhouse/
