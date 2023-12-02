@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   build_wheels:
     name: Build aarch64 (linux/arm64) wheels
+    runs-on: ubuntu-latest
     steps:
       - name: "Checkout abetlen/llama-cpp-python"
         uses: actions/checkout@v4
