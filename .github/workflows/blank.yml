@@ -27,18 +27,17 @@ jobs:
           CIBW_ARCHS: "aarch64"
           CIBW_BUILD: "cp311-*"
         with:
-          output-dir: wheelhouse
+          output-dir: public/llama_cpp_python/
 
       - name: List wheelhouse contents
-        run: ls -la wheelhouse/
+        run: ls -la public/llama_cpp_python/
 
       - name: Make Python Package Index
         uses: girder/create-pip-index-action@main
         with:
-          package_directory: wheelhouse/
+          package_directory: public/llama_cpp_python/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: wheelhouse/
