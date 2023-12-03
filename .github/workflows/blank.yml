@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 jobs:
   build_wheels:
-    name: Build linux/arm64 wheels
+    name: Build linux/aarch64 wheels for llama-cpp-python
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout abetlen/llama-cpp-python"
+      - name: Checkout abetlen/llama-cpp-python
         uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
@@ -29,13 +29,16 @@ jobs:
         with:
           output-dir: public/llama_cpp_python/
 
-      - name: List wheelhouse contents
+      - name: List wheels
         run: ls -la public/llama_cpp_python/
 
       - name: Make Python Package Index
         uses: girder/create-pip-index-action@main
         with:
           package_directory: public/llama_cpp_python/
+
+      - name: Add main index.html
+        run: cp index.html public/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
