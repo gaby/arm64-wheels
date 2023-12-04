@@ -27,15 +27,15 @@ jobs:
           CIBW_ARCHS: "aarch64"
           CIBW_BUILD: "cp311-*"
         with:
-          output-dir: public/llama_cpp_python/
+          output-dir: public/llama-cpp-python/
 
       - name: List wheels
-        run: ls -la public/llama_cpp_python/
+        run: ls -la public/llama-cpp-python/
 
       - name: Make Python Package Index
         uses: girder/create-pip-index-action@main
         with:
-          package_directory: public/llama_cpp_python/
+          package_directory: public/llama-cpp-python/
 
       - name: Checkout main
         uses: actions/checkout@v4
