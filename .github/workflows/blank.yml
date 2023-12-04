@@ -14,9 +14,6 @@ jobs:
           ref: 'v0.2.20'
           submodules: 'recursive'
 
-      - run: ls -la
-      - run: pwd
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
@@ -40,8 +37,13 @@ jobs:
         with:
           package_directory: public/llama_cpp_python/
 
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          path: main
+
       - name: Add main index.html
-        run: cp index.html public/
+        run: cp main/index.html public/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
