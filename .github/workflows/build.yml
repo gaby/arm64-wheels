@@ -25,7 +25,7 @@ jobs:
           CIBW_SKIP: "*musllinux* pp*"
           CIBW_REPAIR_WHEEL_COMMAND: ""
           CIBW_ARCHS: "aarch64"
-          CIBW_BUILD: "cp311-*"
+          CIBW_BUILD: "cp311-* cp312-*"
         with:
           output-dir: public/llama-cpp-python/
 
