@@ -4,14 +4,16 @@ on: [push, pull_request]
 
 jobs:
   build_wheels:
-    name: Build linux/aarch64 wheels
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ['v0.2.23', 'v0.2.24', 'v0.2.25']
     steps:
       - name: Checkout abetlen/llama-cpp-python
         uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
-          ref: 'v0.2.23'
+          ref: ${{ matrix.version }}
           submodules: 'recursive'
 
       - name: Set up QEMU
@@ -27,7 +29,25 @@ jobs:
           CIBW_ARCHS: "aarch64"
           CIBW_BUILD: "cp311-* cp312-*"
         with:
-          output-dir: public/llama-cpp-python/
+          output-dir: wheelhouse/
+
+      - name: Upload wheels as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels-${{ matrix.version }}
+          path: wheelhouse/*.whl
+
+  prepare_deployment:
+    needs: build_wheels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create directory for wheels
+        run: mkdir -p public/llama-cpp-python/
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: public/llama-cpp-python/
 
       - name: List wheels
         run: ls -la public/llama-cpp-python/
@@ -49,3 +69,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
