@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['v0.2.23', 'v0.2.24', 'v0.2.25']
+        version: ['v0.2.23', 'v0.2.24', 'v0.2.25', 'v0.2.26']
     steps:
       - name: Checkout abetlen/llama-cpp-python
         uses: actions/checkout@v4
