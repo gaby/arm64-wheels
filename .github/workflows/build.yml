@@ -7,13 +7,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['v0.2.23', 'v0.2.24', 'v0.2.25', 'v0.2.26', 'v0.2.27', 'v0.2.28', 'v0.2.29']
+        version:
+          - v0.2.23
+          - v0.2.24
+          - v0.2.25
+          - v0.2.26
+          - v0.2.27
+          - v0.2.28
+          - v0.2.29
+          - v0.2.30
+          - v0.2.31
     steps:
       - name: Checkout abetlen/llama-cpp-python
         uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
-          ref: ${{ matrix.version }}
+          ref: '${{ matrix.version }}'
           submodules: 'recursive'
 
       - name: Set up QEMU
