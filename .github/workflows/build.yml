@@ -18,6 +18,7 @@ jobs:
           - v0.2.30
           - v0.2.31
           - v0.2.32
+          - v0.2.33
     steps:
       - name: Checkout abetlen/llama-cpp-python
         uses: actions/checkout@v4
